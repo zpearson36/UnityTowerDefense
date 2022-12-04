@@ -1,3 +1,6 @@
 Temp/*
 Logs/*
 *~
+*.swp
+*.swo
+*.log

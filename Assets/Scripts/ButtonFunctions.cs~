@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonFunctions : MonoBehaviour
 {
-//    public GameObject attackTower;
+    public GameObject attackTower;
     public GameObject gManager;
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,8 @@ public class ButtonFunctions : MonoBehaviour
     public void CreateAttackTower()
     {
         gManager.GetComponent<GameManager>().SetSelectedUnit(
-                Instantiate(
-                    Resources.Load("prefabs/AttackTower") as GameObject,
-                    new Vector3(0, 0, 0), Quaternion.identity)
+                Instantiate(attackTower, new Vector3(0, 0, 0), Quaternion.identity)
                 );
+        gManager.GetComponent<GameManager>().subMoney(100);
     }
 }

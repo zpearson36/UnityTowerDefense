@@ -5,12 +5,14 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public GameObject tower;
+    public GameObject gameManager;
     public float speed = 5.0f;
     public int health = 1;
     // Start is called before the first frame update
     void Start()
     {
         tower = GameObject.Find("Tower");
+        gameManager = GameObject.Find("GameManager");
     }
 
     // Update is called once per frame
@@ -19,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+            gameManager.GetComponent<GameManager>().addMoney(20);
         }
         if(tower != null)
         {

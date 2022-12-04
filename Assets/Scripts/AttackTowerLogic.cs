@@ -6,6 +6,7 @@ public class AttackTowerLogic : MonoBehaviour
 {
     public GameObject target = null;
     public GameObject bullet = null;
+    public int cost = 100;
     public int range = 5;
     public bool canFire = false;
     public float fireTime = 3.0f;

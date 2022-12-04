@@ -20,11 +20,14 @@ public class AttackTowerLogic : MonoBehaviour
     void Update()
     {
         timeSinceFired += Time.deltaTime;
-        if(target != null && timeSinceFired >= fireTime)
+        if(canFire)
         {
-            GameObject tmpBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);
-            tmpBullet.GetComponent<BulletMovement>().SetTarget(target);
-            timeSinceFired = 0.0f;
+            if(target != null && timeSinceFired >= fireTime)
+            {
+                GameObject tmpBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);
+                tmpBullet.GetComponent<BulletMovement>().SetTarget(target);
+                timeSinceFired = 0.0f;
+            }
         }
     }
 }

@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public GameObject tower;
+    public GameObject tower = null;
     public GameObject gameManager;
     public float speed = 5.0f;
     public int health = 1;
     // Start is called before the first frame update
     void Start()
     {
-        tower = GameObject.Find("Tower");
         gameManager = GameObject.Find("GameManager");
+        tower = gameManager.GetComponent<GameManager>().tower;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(tower == null)
+            tower = GameObject.Find("Tower");
         if(health <= 0)
         {
             Destroy(gameObject);
@@ -33,7 +35,7 @@ public class EnemyMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.name == "Tower")
+        if(col.gameObject.tag == "Tower")
         {
             tower.GetComponent<TowerLogic>().damage(1);
             Destroy(gameObject);

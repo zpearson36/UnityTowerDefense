@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject selectedUnit;
+    public GameObject tower;
     public Camera cam;
     private bool canPlace = false;
     public int playerMoney;
     public Text moneyDisplay;
+    public int width, height;
     // Start is called before the first frame update
     void Start()
     {
         moneyDisplay.text = playerMoney.ToString();
+        tower = Instantiate(tower, new Vector2((float) width - 1, (float) height / 2), Quaternion.identity);
+        cam.transform.position = new Vector3((float) width / 2 - 0.5f, 
+                                             (float) height / 2 - 0.5f,
+                                             -10);
     }
 
     // Update is called once per frame
@@ -38,10 +44,10 @@ public class GameManager : MonoBehaviour
             {
                 if(playerMoney >= selectedUnit.GetComponent<AttackTowerLogic>().cost)
                 {
+                    subMoney(selectedUnit.GetComponent<AttackTowerLogic>().cost);
                     selectedUnit.GetComponent<AttackTowerLogic>().canFire = true;
                     selectedUnit = null;
                     canPlace = false;
-                    subMoney(selectedUnit.GetComponent<AttackTowerLogic>().cost);
                 }
             }
         }

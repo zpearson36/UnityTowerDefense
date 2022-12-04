@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8921bb8951b1a48b12b9fbf316dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower: {fileID: 0}
+  tower: {fileID: 5469318040091218289, guid: f99698557e88a8746913fa2484a0e4ae, type: 3}
+  gameManager: {fileID: 0}
   speed: 0.001
   health: 1

@@ -19,7 +19,7 @@ public class EnemySpawnerLogic : MonoBehaviour
         timeSinceSpawn += Time.deltaTime;
         if(timeSinceSpawn >= spawnTime)
         {
-            Instantiate(enemy, new Vector2(-7, Random.Range(-5, 5)), Quaternion.identity);
+            Instantiate(enemy, new Vector2(0, Random.Range(0, 10)), Quaternion.identity);
             timeSinceSpawn = 0.0f;
         }
     }

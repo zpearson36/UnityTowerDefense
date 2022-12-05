@@ -40,16 +40,6 @@ public class GameManager : MonoBehaviour
                 selectedUnit = null;
                 canPlace = false;
             }
-            if(Input.GetMouseButtonDown(0))
-            {
-                if(playerMoney >= selectedUnit.GetComponent<AttackTowerLogic>().cost)
-                {
-                    subMoney(selectedUnit.GetComponent<AttackTowerLogic>().cost);
-                    selectedUnit.GetComponent<AttackTowerLogic>().canFire = true;
-                    selectedUnit = null;
-                    canPlace = false;
-                }
-            }
         }
 
         if(selectedUnit != null)
@@ -76,5 +66,20 @@ public class GameManager : MonoBehaviour
     {
         playerMoney -= cost;
         moneyDisplay.text = playerMoney.ToString();
+    }
+
+    public GameObject placeUnit()
+    {
+        GameObject tmpUnit = null;
+        if(playerMoney >= selectedUnit.GetComponent<AttackTowerLogic>().cost)
+        {
+            tmpUnit = selectedUnit;
+            subMoney(selectedUnit.GetComponent<AttackTowerLogic>().cost);
+            selectedUnit.GetComponent<AttackTowerLogic>().canFire = true;
+            selectedUnit = null;
+            canPlace = false;
+        }
+
+        return tmpUnit;
     }
 }

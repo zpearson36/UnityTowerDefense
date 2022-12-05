@@ -5,6 +5,8 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
+    public GameObject unit, gameManager;
+    public bool isHovering = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,16 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       if(unit == null &&
+          isHovering &&
+          gameManager.GetComponent<GameManager>().selectedUnit != null &&
+          Input.GetMouseButtonDown(0))
+       {
+           Debug.Log("poop");
+           unit = gameManager.GetComponent<GameManager>().placeUnit();
+           if(unit != null)
+               unit.transform.position = transform.position;
+       }
     }
 
     public void setColor(int _val)
@@ -22,5 +33,16 @@ public class Tile : MonoBehaviour
         spriteRenderer.color = new Color(.6f, .6f, .6f, 1.0f);
         if(_val % 2 == 0)
             spriteRenderer.color = new Color(.5f, .5f, .5f, 1.0f);
+    }
+
+    void OnMouseOver()
+    {
+        Debug.Log(gameObject.name);
+        isHovering = true;
+    }
+
+    void OnMouseExit()
+    {
+        isHovering = false;
     }
 }

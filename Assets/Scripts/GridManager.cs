@@ -29,6 +29,7 @@ public class GridManager : MonoBehaviour
                 var spawnedTile = Instantiate(_tilePrefab, new Vector2(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.GetComponent<Tile>().setColor(x + y);
+                spawnedTile.GetComponent<Tile>().gameManager = gameManager;
             }
         }
 

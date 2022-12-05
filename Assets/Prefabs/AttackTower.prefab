@@ -232,7 +232,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   bullet: {fileID: 3091902804459646861, guid: 006c73332a281604e92713262248be7b, type: 3}
+  cost: 100
   range: 5
   canFire: 0
   fireTime: 3
   timeSinceFired: 3
+  collider: {fileID: 0}

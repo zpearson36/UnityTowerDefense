@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject selectedUnit;
+    public GameObject gridManager;
     public GameObject tower;
     public bool started = false;
     public GameObject spawner;
@@ -24,9 +26,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cam.aspect = 1.4f;
         wave = 0;
         moneyDisplay.text = playerMoney.ToString();
-        //tower = Instantiate(tower, new Vector2((float) width - 2, (float) height / 2), Quaternion.identity);
+        tower = Instantiate(tower, new Vector2((float) width - 2, (float) height / 2), Quaternion.identity);
         tower.transform.position = new Vector2((float) width - 2, (float) height / 2);
         cam.transform.position = new Vector3((float) width / 2 - 0.5f, 
                                              (float) height / 2 - 0.5f,
@@ -36,8 +39,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown("space"))
+        {
+            cam.transform.position = new Vector3(
+                    cam.transform.position.x,
+                    cam.transform.position.y,
+                    cam.transform.position.z - 1
+                    );
+        }
         if(!started)
         {
+            gridManager.GetComponent<GridManager>().AddUnitToTile(width - 2,
+                    (int)(height / 2),
+                    tower);
             started = !started;
         }
         if(GameObject.Find("Tower") == null)

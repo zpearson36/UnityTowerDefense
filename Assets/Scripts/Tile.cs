@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public GameObject unit, gameManager;
     public bool isHovering = false;
+    public bool isRoad = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,16 @@ public class Tile : MonoBehaviour
     {
         unit = _unit;
         unit.transform.position = transform.position;
-        unit.GetComponent<AttackTowerLogic>().canFire = true;
+        if(unit.tag == "AttackTower")
+        {
+            unit.GetComponent<AttackTowerLogic>().canFire = true;
+        }
+    }
+
+    public void setAsRoad()
+    {
+        isRoad = true;
+        spriteRenderer.color = new Color(1f, .9f, .7f, 1.0f);
+
     }
 }

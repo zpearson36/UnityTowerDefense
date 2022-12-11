@@ -5,13 +5,13 @@ using UnityEngine;
 public class DetectionRangeLogic : MonoBehaviour
 {
     private List<GameObject> targList = new List<GameObject>();
-    public BoxCollider2D collider;
+    public CircleCollider2D collider;
     // Start is called before the first frame update
     void Start()
     {
         int scale = transform.parent.GetComponent<AttackTowerLogic>().range;
         transform.localScale = new Vector3(scale, scale,1);
-        collider = gameObject.GetComponent<BoxCollider2D>();
+        collider = gameObject.GetComponent<CircleCollider2D>();
         collider.enabled = false;
     }
 

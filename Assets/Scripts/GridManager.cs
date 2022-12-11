@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour
 {
     public GameObject gameManager;
     public Tile _tilePrefab;
+    public Tile[,] tileArray;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class GridManager : MonoBehaviour
     {
         int _width = gameManager.GetComponent<GameManager>().width;
         int _height = gameManager.GetComponent<GameManager>().height;
+        tileArray = new Tile[_width, _height];
         for (int x = 0; x < _width; x++)
         {
             for(int y = 0; y < _height; y++)
@@ -30,8 +32,15 @@ public class GridManager : MonoBehaviour
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.GetComponent<Tile>().setColor(x + y);
                 spawnedTile.GetComponent<Tile>().gameManager = gameManager;
+                if(y == (int) _height / 2)
+                    spawnedTile.GetComponent<Tile>().setAsRoad();
+                tileArray[x, y] = spawnedTile;
             }
         }
+    }
 
+    public void AddUnitToTile(int x, int y, GameObject gameObject)
+    {
+        tileArray[x, y].GetComponent<Tile>().addUnit(gameObject);
     }
 }

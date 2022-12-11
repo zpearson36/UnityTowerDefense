@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject selectedUnit;
     public GameObject tower;
+    public bool started = false;
     public GameObject spawner;
     public Camera cam;
     private bool canPlace = false;
@@ -25,7 +26,8 @@ public class GameManager : MonoBehaviour
     {
         wave = 0;
         moneyDisplay.text = playerMoney.ToString();
-        tower = Instantiate(tower, new Vector2((float) width - 2, (float) height / 2), Quaternion.identity);
+        //tower = Instantiate(tower, new Vector2((float) width - 2, (float) height / 2), Quaternion.identity);
+        tower.transform.position = new Vector2((float) width - 2, (float) height / 2);
         cam.transform.position = new Vector3((float) width / 2 - 0.5f, 
                                              (float) height / 2 - 0.5f,
                                              -10);
@@ -34,6 +36,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(cam.ScreenPointToRay(Input.mousePosition));
+        if(!started)
+        {
+            started = !started;
+        }
         if(GameObject.Find("Tower") == null)
         {
             Application.Quit();
@@ -49,6 +56,26 @@ public class GameManager : MonoBehaviour
                 selectedUnit = null;
                 canPlace = false;
             }
+            if(Input.GetMouseButtonDown(0))
+            {
+                
+                RaycastHit2D[] hits = Physics2D.RaycastAll(cam.ScreenPointToRay(Input.mousePosition).origin,cam.ScreenPointToRay(Input.mousePosition).direction);
+                foreach(RaycastHit2D hit in hits)
+                {
+                    if(hit.collider.gameObject.tag == "Tile")
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+                        if(playerMoney >= selectedUnit.GetComponent<AttackTowerLogic>().cost)
+                        {
+                            subMoney(selectedUnit.GetComponent<AttackTowerLogic>().cost);
+                            hit.collider.gameObject.GetComponent<Tile>().addUnit(selectedUnit);
+                            selectedUnit = null;
+                            canPlace = false;
+                        }
+                        break;
+                    }
+                }
+            }
         }
 
         if(selectedUnit != null)
@@ -60,7 +87,7 @@ public class GameManager : MonoBehaviour
             spawner.GetComponent<EnemySpawnerLogic>().StartWave((int)waveInfo[wave, 0], waveInfo[wave, 1]);
             wave++;
         }
-        if(wave > 5)
+        if(wave >= 5)
             wave = 0;
     }
 

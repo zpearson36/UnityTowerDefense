@@ -16,16 +16,16 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(unit == null &&
-          isHovering &&
-          gameManager.GetComponent<GameManager>().selectedUnit != null &&
-          Input.GetMouseButtonDown(0))
-       {
-           Debug.Log("poop");
-           unit = gameManager.GetComponent<GameManager>().placeUnit();
-           if(unit != null)
-               unit.transform.position = transform.position;
-       }
+      // if(unit == null &&
+      //    isHovering &&
+      //    gameManager.GetComponent<GameManager>().selectedUnit != null &&
+      //    Input.GetMouseButtonDown(0))
+      // {
+      //     Debug.Log("poop");
+      //     unit = gameManager.GetComponent<GameManager>().placeUnit();
+      //     if(unit != null)
+      //         unit.transform.position = transform.position;
+      // }
     }
 
     public void setColor(int _val)
@@ -37,12 +37,18 @@ public class Tile : MonoBehaviour
 
     void OnMouseOver()
     {
-        Debug.Log(gameObject.name);
         isHovering = true;
     }
 
     void OnMouseExit()
     {
         isHovering = false;
+    }
+
+    public void addUnit(GameObject _unit)
+    {
+        unit = _unit;
+        unit.transform.position = transform.position;
+        unit.GetComponent<AttackTowerLogic>().canFire = true;
     }
 }

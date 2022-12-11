@@ -21,8 +21,9 @@ public class EnemySpawnerLogic : MonoBehaviour
         timeSinceSpawn += Time.deltaTime;
         if(timeSinceSpawn >= spawnTime && spawnNum > 0)
         {
-            Instantiate(enemy, new Vector2(0, Random.Range(0, 10)), Quaternion.identity);
+           // Instantiate(enemy, new Vector2(0, Random.Range(0, 10)), Quaternion.identity);
             spawnNum--;
+            timeSinceSpawn = 0;
         }
         if(spawnNum == 0)
             waveLaunched = true;

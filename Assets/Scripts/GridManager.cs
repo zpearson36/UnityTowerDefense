@@ -32,7 +32,7 @@ public class GridManager : MonoBehaviour
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.GetComponent<Tile>().setColor(x + y);
                 spawnedTile.GetComponent<Tile>().gameManager = gameManager;
-                if(y == (int) _height / 2)
+                if((x == 6 && y <= (int) _height / 2) || (y == (int) _height / 2 && x > 6))
                     spawnedTile.GetComponent<Tile>().setAsRoad();
                 tileArray[x, y] = spawnedTile;
             }

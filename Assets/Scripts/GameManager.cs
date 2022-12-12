@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
                     cam.transform.position.y,
                     cam.transform.position.z - 1
                     );
+
         }
         if(!started)
         {
@@ -53,6 +54,17 @@ public class GameManager : MonoBehaviour
                     (int)(height / 2),
                     tower);
             started = !started;
+            List<Tile> tList = new List<Tile>();
+            tList = PathFinding.PathFind(
+                gridManager.GetComponent<GridManager>().tileArray[6, 0],
+                gridManager.GetComponent<GridManager>().tileArray[width - 2, (int)(height / 2)]
+                );
+            foreach(Tile t in tList)
+            {
+                Debug.Log(
+                        t.transform.position
+                        );
+            }
         }
         if(GameObject.Find("Tower") == null)
         {

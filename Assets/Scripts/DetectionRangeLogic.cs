@@ -39,6 +39,8 @@ public class DetectionRangeLogic : MonoBehaviour
         {
             Debug.Log("FuckYea");
             targList.Remove(col.gameObject);
+            if(this.transform.parent.GetComponent<AttackTowerLogic>().target == col.gameObject)
+                this.transform.parent.GetComponent<AttackTowerLogic>().target = null;
         }
     }
 }

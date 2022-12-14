@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
         {25f, 1f},
         {30f, .5f},
     };
+    public List<Tile> tList = new List<Tile>();
     // Start is called before the first frame update
     void Start()
     {
@@ -53,8 +54,6 @@ public class GameManager : MonoBehaviour
             gridManager.GetComponent<GridManager>().AddUnitToTile(width - 2,
                     (int)(height / 2),
                     tower);
-            started = !started;
-            List<Tile> tList = new List<Tile>();
             tList = PathFinding.PathFind(
                 gridManager.GetComponent<GridManager>().tileArray[6, 0],
                 gridManager.GetComponent<GridManager>().tileArray[width - 2, (int)(height / 2)]
@@ -65,6 +64,7 @@ public class GameManager : MonoBehaviour
                         t.transform.position
                         );
             }
+            started = !started;
         }
         if(GameObject.Find("Tower") == null)
         {
@@ -87,7 +87,8 @@ public class GameManager : MonoBehaviour
                 RaycastHit2D[] hits = Physics2D.RaycastAll(cam.ScreenPointToRay(Input.mousePosition).origin,cam.ScreenPointToRay(Input.mousePosition).direction);
                 foreach(RaycastHit2D hit in hits)
                 {
-                    if(hit.collider.gameObject.tag == "Tile")
+                    if(hit.collider.gameObject.tag == "Tile"
+                            && !hit.collider.gameObject.GetComponent<Tile>().isRoad)
                     {
                         Debug.Log(hit.collider.gameObject.name);
                         if(playerMoney >= selectedUnit.GetComponent<AttackTowerLogic>().cost)

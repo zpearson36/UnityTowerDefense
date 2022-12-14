@@ -6,6 +6,9 @@ TagManager:
   tags:
   - VileVillain
   - Bullet
+  - Tower
+  - Tile
+  - AttackTower
   layers:
   - Default
   - TransparentFX

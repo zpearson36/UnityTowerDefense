@@ -6,14 +6,17 @@ public class AttackTowerLogic : MonoBehaviour
 {
     public GameObject target = null;
     public GameObject bullet = null;
+    public int cost = 100;
     public int range = 5;
     public bool canFire = false;
     public float fireTime = 3.0f;
     public float timeSinceFired = 3.0f;
+    public BoxCollider2D collider;
     // Start is called before the first frame update
     void Start()
     {
-        
+        collider = gameObject.GetComponent<BoxCollider2D>();
+        collider.enabled = false;
     }
 
     // Update is called once per frame
@@ -22,6 +25,8 @@ public class AttackTowerLogic : MonoBehaviour
         timeSinceFired += Time.deltaTime;
         if(canFire)
         {
+            if(!collider.enabled)
+                collider.enabled = true;
             if(target != null && timeSinceFired >= fireTime)
             {
                 GameObject tmpBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);

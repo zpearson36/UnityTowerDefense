@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemySpawnerLogic : MonoBehaviour
 {
-    public GameObject enemy;
+    public GameObject enemy, gameManager;
+    public int spawnNum = 1;
     public float spawnTime = 5.0f;
-    private float timeSinceSpawn = 0.0f; 
+    public bool waveLaunched = true;
+    private float timeSinceSpawn = 5.0f; 
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +19,26 @@ public class EnemySpawnerLogic : MonoBehaviour
     void Update()
     {
         timeSinceSpawn += Time.deltaTime;
-        if(timeSinceSpawn >= spawnTime)
+        if(gameManager.GetComponent<GameManager>().started)
         {
-            Instantiate(enemy, new Vector2(-7, Random.Range(-5, 5)), Quaternion.identity);
-            timeSinceSpawn = 0.0f;
+            if(timeSinceSpawn >= spawnTime && spawnNum > 0)
+            {
+                GameObject tmp = Instantiate(enemy, new Vector2(0, Random.Range(0, 10)), Quaternion.identity);
+                tmp.GetComponent<EnemyMovement>().setPath(
+                    gameManager.GetComponent<GameManager>().tList
+                        );
+                spawnNum--;
+                timeSinceSpawn = 0;
+            }
+            if(spawnNum == 0)
+                waveLaunched = true;
         }
+    }
+
+    public void StartWave(int spawnCount, float spawnInterval)
+    {
+        spawnNum = spawnCount;
+        spawnTime = spawnInterval;
+        waveLaunched = false;
     }
 }

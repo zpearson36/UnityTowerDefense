@@ -427,6 +427,7 @@ MonoBehaviour:
   width: 14
   height: 10
   wave: 0
+  tList: []
 --- !u!4 &905355717
 Transform:
   m_ObjectHideFlags: 0
@@ -761,6 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 3290033104954815734, guid: 7b30f3098229d9a4a8c9ce6bd639ae28, type: 3}
+  gameManager: {fileID: 905355715}
   spawnNum: 1
   spawnTime: 5
   waveLaunched: 1

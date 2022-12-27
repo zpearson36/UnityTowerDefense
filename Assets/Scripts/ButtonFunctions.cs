@@ -30,4 +30,15 @@ public class ButtonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene (sceneName:"Game");
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(sceneName:"MainMenu");
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(sceneName:"Game");
+        //gManager.GetComponent<GameManager>().restart();
+    }
 }

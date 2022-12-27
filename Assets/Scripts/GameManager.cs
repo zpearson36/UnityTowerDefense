@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     public GameObject selectedUnit;
     public GameObject gridManager;
     public GameObject tower;
+    public GameObject gameOverScreen;
     public bool started = false;
+    public bool running = false;
     public GameObject spawner;
     public Camera cam;
     private bool canPlace = false;
@@ -58,17 +60,13 @@ public class GameManager : MonoBehaviour
                 gridManager.GetComponent<GridManager>().tileArray[6, 0],
                 gridManager.GetComponent<GridManager>().tileArray[width - 2, (int)(height / 2)]
                 );
-            foreach(Tile t in tList)
-            {
-                Debug.Log(
-                        t.transform.position
-                        );
-            }
-            started = !started;
+            started = true;
+            running = true;
         }
-        if(GameObject.Find("Tower") == null)
+        if(GameObject.FindWithTag("Tower") == null)
         {
-            Application.Quit();
+            running = false;
+            gameover();
         }
 
         if(canPlace)
@@ -152,5 +150,20 @@ public class GameManager : MonoBehaviour
         }
 
         return tmpUnit;
+    }
+
+    void gameover()
+    {
+        gameOverScreen.SetActive(true);
+    }
+
+    public void restart()
+    {
+        tower = Instantiate(tower, new Vector2((float) width - 2, (float) height / 2), Quaternion.identity);
+        tower.transform.position = new Vector2((float) width - 2, (float) height / 2);
+        wave = 0;
+        gameOverScreen.SetActive(false);
+        spawner.GetComponent<EnemySpawnerLogic>().StartWave((int)waveInfo[wave, 0], waveInfo[wave, 1]);
+        running = true;
     }
 }

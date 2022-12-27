@@ -19,7 +19,10 @@ public class EnemySpawnerLogic : MonoBehaviour
     void Update()
     {
         timeSinceSpawn += Time.deltaTime;
-        if(gameManager.GetComponent<GameManager>().started)
+        Debug.Log("Running: " + gameManager.GetComponent<GameManager>().running.ToString());
+        Debug.Log("Started: " + gameManager.GetComponent<GameManager>().started.ToString());
+        if(gameManager.GetComponent<GameManager>().started &&
+                gameManager.GetComponent<GameManager>().running)
         {
             if(timeSinceSpawn >= spawnTime && spawnNum > 0)
             {
